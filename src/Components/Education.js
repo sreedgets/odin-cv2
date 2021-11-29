@@ -1,23 +1,63 @@
 export default function Education(props) {
     const {addSchool, schoolList} = props.data;
     
-    const List = schoolList.map(school => {
-        return (
-            <div id={school.id} className='education--school'>
-                <h3>{school.schoolName}</h3>
-                <p>{school.dates}</p>
-            </div>
-        );
+    const list = schoolList.map(school => {
+        let schoolDisplay;
+        if (!school.inEdit) {
+            schoolDisplay = 
+                <div key={school.id} id={school.id} className='education--school'>
+                    <h3>{school.schoolName}</h3>
+                    <p>{school.dates}</p>
+                    <button className="education--edit-school">Edit</button>
+                    <button className="education--delete-school">Delete</button>
+                </div>;
+        } else {
+            schoolDisplay = 
+                <div key={school.id} id={school.id} className='education--school'>
+                    <div className="education--input-wrapper">
+                        <input type="text" placeholder="School Name" value={school.schoolName} />
+                    </div>
+                    <div className="education--input-wrapper">
+                        <input type="text" placeholder="Dates" value={school.dates} />
+                    </div>
+                    <button 
+                        className="education--submit-edit"
+                        onClick={(e) => props.toggleSchoolEdit(e)}
+                    >
+                        Submit
+                    </button>
+                    <button className="education--cancel-school">Cancel</button>
+                </div>
+        }
+
+        return schoolDisplay;
     });
 
     let schoolForm;
 
-    if (addSchool) {
+    if (addSchool.inEdit) {
         schoolForm = 
             <div className="education--input-wrapper">
-                <input type="text" placeholder="Schoolname" />
-                <input type="text" placeholder="Dates Attended" />
-                <button className="education--submit-school">Submit</button>
+                <input 
+                    type="text" 
+                    placeholder="Schoolname" 
+                    onChange={(e) => props.educationChange(e)}
+                    value={addSchool.schoolName}
+                    name="schoolName"
+                />
+                <input 
+                    type="text" 
+                    placeholder="Dates Attended" 
+                    onChange={(e) => props.educationChange(e)}
+                    value={addSchool.dates}
+                    name="dates"
+                />
+                <button 
+                    className="education--submit-school"
+                    onClick={() => props.submitSchool()}
+                >
+                    Submit
+                </button>
             </div>
     } else {
         schoolForm = null
@@ -26,13 +66,10 @@ export default function Education(props) {
     return (
         <section className="education-info">
             <h2>Education</h2>
-            <div id="1" className="education--school">
-                <h3>School Name</h3>
-                <p>Dates Attended</p>
-            </div>
+            {list}
             {schoolForm}
             <button onClick={(e) => props.toggleAddForm(e)}>
-                {addSchool ? 'Cancel' : 'Add School'}
+                {addSchool.inEdit ? 'Cancel' : 'Add School'}
             </button>
         </section>
     );

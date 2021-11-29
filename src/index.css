@@ -28,7 +28,8 @@ h3 {
     padding: 1.5rem;
 }
 
-.general--input-wrapper {
+.general--input-wrapper,
+.education--input-wrapper {
     margin-bottom: 1rem;
 }
 
@@ -54,4 +55,21 @@ h3 {
 .education--submit-school,
 .experience--submit-work {
     margin: 0 1rem 1rem 0;
+}
+
+.education--edit-school,
+.education--delete-school,
+.education--cancel-school,
+.education--submit-edit {
+    margin-bottom: 1rem;
+}
+
+.education--delete-school,
+.education--cancel-school {
+    margin-left: -1px;
+}
+
+.education--school {
+    border-bottom: 1px solid #111;
+    margin-bottom: 1rem;
 }

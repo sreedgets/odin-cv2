@@ -27,10 +27,20 @@ export default function App() {
                 id: 1,
                 schoolName: 'Creston High School',
                 dates: 'for a time',
-                inEdit: false
+                inEdit: true
+            },
+            {
+                id: 2,
+                schoolName: 'SWCC',
+                dates: 'for a time',
+                inEdit: true
             }
         ],
-        addSchool: false
+        addSchool: {
+            inEdit: false,
+            schoolName: '',
+            dates: ''
+        }
     });
 
     function toggleGeneralEdit(e) {
@@ -43,9 +53,23 @@ export default function App() {
         });
     }
 
+    function toggleSchoolEdit(e) {
+        let target = e.target.parentNode.id - 1;
+        let newState = {...educationInfo};
+        newState.schoolList[target] = {
+            ...newState.schoolList[target],
+            inEdit: !newState.schoolList[target].inEdit
+        }
+
+        
+    }
+
     function toggleAddForm() {
         setEducationInfo(prev => {
-            return {...prev, addSchool: !prev.addSchool}
+            return {
+                ...prev, 
+                addSchool: {...prev.addSchool, inEdit: !prev.addSchool.inEdit}
+            }
         });
     }
 
@@ -60,6 +84,46 @@ export default function App() {
         });
     }
 
+    function addSchool() {
+        const newSchool = {
+            id: educationInfo.schoolList.length + 1,
+            schoolName: educationInfo.addSchool.schoolName,
+            dates: educationInfo.addSchool.dates,
+            inEdit: false
+        }
+
+        setEducationInfo(prev => {
+            return {
+                addSchool: {inEdit: false, schoolName: '', dates: ''},
+                schoolList: [...prev.schoolList, newSchool]
+            }
+        });
+    }
+
+    function handleEducationChange(e) {
+        if (e.target.name === 'schoolName') {
+            setEducationInfo(prev => {
+                return {
+                    ...prev,
+                    addSchool: {
+                        ...prev.addSchool,
+                        schoolName: e.target.value
+                    }
+                }
+            });
+        } else {
+            setEducationInfo(prev => {
+                return {
+                    ...prev,
+                    addSchool: {
+                        ...prev.addSchool,
+                        dates: e.target.value
+                    }
+                }
+            });
+        }
+    }
+
     return (
         <main className="App">
             <General 
@@ -70,6 +134,9 @@ export default function App() {
             <Education 
                 data={educationInfo}
                 toggleAddForm={toggleAddForm}
+                submitSchool={addSchool}
+                educationChange={handleEducationChange}
+                toggleSchoolEdit={toggleSchoolEdit}
             />
             <section>
                 <h2>Experience</h2>
