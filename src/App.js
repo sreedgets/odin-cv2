@@ -27,13 +27,13 @@ export default function App() {
                 id: 1,
                 schoolName: 'Creston High School',
                 dates: 'for a time',
-                inEdit: true
+                inEdit: false
             },
             {
                 id: 2,
                 schoolName: 'SWCC',
                 dates: 'for a time',
-                inEdit: true
+                inEdit: false
             }
         ],
         addSchool: {
@@ -54,14 +54,16 @@ export default function App() {
     }
 
     function toggleSchoolEdit(e) {
-        let target = e.target.parentNode.id - 1;
+        const parentId = e.target.parentNode.id;
+        const index = parentId - 1;
         let newState = {...educationInfo};
-        newState.schoolList[target] = {
-            ...newState.schoolList[target],
-            inEdit: !newState.schoolList[target].inEdit
+
+        newState.schoolList[index] = {
+            ...newState.schoolList[index],
+            inEdit: !newState.schoolList[index].inEdit
         }
 
-        
+        setEducationInfo(prev => ({...prev, newState}));
     }
 
     function toggleAddForm() {
@@ -77,6 +79,7 @@ export default function App() {
         const value = e.target.value;
         const field = e.target.parentNode.id
 
+
         setGeneralInfo(prev => {
             return prev.map(obj => {
                 return obj.field === field ? {...obj, value: value} : obj;
@@ -85,10 +88,12 @@ export default function App() {
     }
 
     function addSchool() {
+        const {schoolName, dates} = educationInfo.addSchool;
+        
         const newSchool = {
             id: educationInfo.schoolList.length + 1,
-            schoolName: educationInfo.addSchool.schoolName,
-            dates: educationInfo.addSchool.dates,
+            schoolName: schoolName,
+            dates: dates,
             inEdit: false
         }
 

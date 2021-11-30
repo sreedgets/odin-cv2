@@ -8,7 +8,12 @@ export default function Education(props) {
                 <div key={school.id} id={school.id} className='education--school'>
                     <h3>{school.schoolName}</h3>
                     <p>{school.dates}</p>
-                    <button className="education--edit-school">Edit</button>
+                    <button 
+                        className="education--edit-school"
+                        onClick={(e) => props.toggleSchoolEdit(e)}
+                    >
+                        Edit
+                    </button>
                     <button className="education--delete-school">Delete</button>
                 </div>;
         } else {
