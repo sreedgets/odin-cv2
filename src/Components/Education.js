@@ -10,7 +10,7 @@ export default function Education(props) {
                     <p>{school.dates}</p>
                     <button 
                         className="education--edit-school"
-                        onClick={(e) => props.toggleSchoolEdit(e)}
+                        onClick={() => props.toggleSchoolEdit(school.id)}
                     >
                         Edit
                     </button>
@@ -21,31 +21,36 @@ export default function Education(props) {
                 <div key={school.id} id={school.id} className='education--school'>
                     <div className="education--input-wrapper">
                         <input
-                            id="school-name" 
-                            data={school.id} 
+                            id="schoolName"
+                            name="schoolName" 
                             type="text" 
                             placeholder="School Name" 
                             value={school.schoolName}
-                            onChange={(e) => props.educationEditChange(e)} 
+                            onChange={props.educationEditChange} 
                         />
                     </div>
                     <div className="education--input-wrapper">
                         <input 
-                            id="school-dates"
-                            data={school.id} 
+                            id="dates"
+                            name="dates"
                             type="text" 
                             placeholder="Dates" 
                             value={school.dates}
-                            onChange={(e) => props.educationEditChange(e)} 
+                            onChange={props.educationEditChange} 
                         />
                     </div>
                     <button 
                         className="education--submit-edit"
-                        onClick={(e) => props.toggleSchoolEdit(e)}
+                        onClick={() => props.toggleSchoolEdit(school.id)}
                     >
                         Submit
                     </button>
-                    <button className="education--cancel-school">Cancel</button>
+                    <button 
+                        className="education--cancel-school"
+                        onClick={() => props.toggleSchoolEdit(school.id)}
+                    >
+                        Cancel
+                    </button>
                 </div>
         }
 
@@ -60,20 +65,20 @@ export default function Education(props) {
                 <input 
                     type="text" 
                     placeholder="Schoolname" 
-                    onChange={(e) => props.educationChange(e)}
+                    onChange={props.educationChange}
                     value={addSchool.schoolName}
                     name="schoolName"
                 />
                 <input 
                     type="text" 
                     placeholder="Dates Attended" 
-                    onChange={(e) => props.educationChange(e)}
+                    onChange={props.educationChange}
                     value={addSchool.dates}
                     name="dates"
                 />
                 <button 
                     className="education--submit-school"
-                    onClick={() => props.submitSchool()}
+                    onClick={props.submitSchool}
                 >
                     Submit
                 </button>
@@ -87,7 +92,7 @@ export default function Education(props) {
             <h2>Education</h2>
             {list}
             {schoolForm}
-            <button onClick={(e) => props.toggleAddForm(e)}>
+            <button onClick={props.toggleAddForm}>
                 {addSchool.inEdit ? 'Cancel' : 'Add School'}
             </button>
         </section>

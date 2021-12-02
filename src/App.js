@@ -40,9 +40,8 @@ export default function App() {
         });
     }
 
-    function toggleSchoolEdit(e) {
-        const parentId = e.target.parentNode.id;
-        const index = parentId - 1;
+    function toggleSchoolEdit(id) {
+        const index = id - 1;
         let newState = {...educationInfo};
 
         newState.schoolList[index] = {
@@ -54,6 +53,20 @@ export default function App() {
     }
 
     function educationEditChange(e) {
+        const {value, name} = e.target;
+        const index = e.target.parentNode.parentNode.id - 1;
+        let newState = {...educationInfo};
+
+        newState.schoolList[index] = {
+            ...newState.schoolList[index],
+            [name] : value
+        }
+
+        setEducationInfo(prev => ({...prev, newState}));
+    }
+
+
+    /* function educationEditChange(e) {
         const {id, value} = e.target;
         const index = e.target.parentNode.parentNode.id - 1;
         let newState = {...educationInfo};
@@ -74,7 +87,7 @@ export default function App() {
 
             setEducationInfo(prev => ({...prev, newState}));
         }
-    }
+    } */
 
     function toggleAddForm() {
         setEducationInfo(prev => {
