@@ -20,10 +20,24 @@ export default function Education(props) {
             schoolDisplay = 
                 <div key={school.id} id={school.id} className='education--school'>
                     <div className="education--input-wrapper">
-                        <input type="text" placeholder="School Name" value={school.schoolName} />
+                        <input
+                            id="school-name" 
+                            data={school.id} 
+                            type="text" 
+                            placeholder="School Name" 
+                            value={school.schoolName}
+                            onChange={(e) => props.educationEditChange(e)} 
+                        />
                     </div>
                     <div className="education--input-wrapper">
-                        <input type="text" placeholder="Dates" value={school.dates} />
+                        <input 
+                            id="school-dates"
+                            data={school.id} 
+                            type="text" 
+                            placeholder="Dates" 
+                            value={school.dates}
+                            onChange={(e) => props.educationEditChange(e)} 
+                        />
                     </div>
                     <button 
                         className="education--submit-edit"

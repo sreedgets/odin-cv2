@@ -22,20 +22,7 @@ export default function App() {
     ]);
 
     const [educationInfo, setEducationInfo] = useState({
-        schoolList: [
-            {
-                id: 1,
-                schoolName: 'Creston High School',
-                dates: 'for a time',
-                inEdit: false
-            },
-            {
-                id: 2,
-                schoolName: 'SWCC',
-                dates: 'for a time',
-                inEdit: false
-            }
-        ],
+        schoolList: [],
         addSchool: {
             inEdit: false,
             schoolName: '',
@@ -64,6 +51,29 @@ export default function App() {
         }
 
         setEducationInfo(prev => ({...prev, newState}));
+    }
+
+    function educationEditChange(e) {
+        const {id, value} = e.target;
+        const index = e.target.parentNode.parentNode.id - 1;
+        let newState = {...educationInfo};
+
+
+        if (id === 'school-name') {
+            newState.schoolList[index] = {
+                ...newState.schoolList[index],
+                schoolName: value
+            };
+
+            setEducationInfo(prev => ({...prev, newState}));
+        } else {
+            newState.schoolList[index] = {
+                ...newState.schoolList[index],
+                dates: value
+            }
+
+            setEducationInfo(prev => ({...prev, newState}));
+        }
     }
 
     function toggleAddForm() {
@@ -142,6 +152,8 @@ export default function App() {
                 submitSchool={addSchool}
                 educationChange={handleEducationChange}
                 toggleSchoolEdit={toggleSchoolEdit}
+                educationEditChange={educationEditChange}
+
             />
             <section>
                 <h2>Experience</h2>
