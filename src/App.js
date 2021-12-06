@@ -65,30 +65,6 @@ export default function App() {
         setEducationInfo(prev => ({...prev, newState}));
     }
 
-
-    /* function educationEditChange(e) {
-        const {id, value} = e.target;
-        const index = e.target.parentNode.parentNode.id - 1;
-        let newState = {...educationInfo};
-
-
-        if (id === 'school-name') {
-            newState.schoolList[index] = {
-                ...newState.schoolList[index],
-                schoolName: value
-            };
-
-            setEducationInfo(prev => ({...prev, newState}));
-        } else {
-            newState.schoolList[index] = {
-                ...newState.schoolList[index],
-                dates: value
-            }
-
-            setEducationInfo(prev => ({...prev, newState}));
-        }
-    } */
-
     function toggleAddForm() {
         setEducationInfo(prev => {
             return {
@@ -129,27 +105,17 @@ export default function App() {
     }
 
     function handleEducationChange(e) {
-        if (e.target.name === 'schoolName') {
-            setEducationInfo(prev => {
-                return {
-                    ...prev,
-                    addSchool: {
-                        ...prev.addSchool,
-                        schoolName: e.target.value
-                    }
+        const {value, name} = e.target;
+
+        setEducationInfo(prev => {
+            return {
+                ...prev,
+                addSchool: {
+                    ...prev.addSchool,
+                    [name]: value
                 }
-            });
-        } else {
-            setEducationInfo(prev => {
-                return {
-                    ...prev,
-                    addSchool: {
-                        ...prev.addSchool,
-                        dates: e.target.value
-                    }
-                }
-            });
-        }
+            }
+        });
     }
 
     return (
