@@ -30,12 +30,10 @@ export default function App() {
         }
     });
 
-    function toggleGeneralEdit(e) {
-        const target = e.target.parentNode.id;
-
+    function toggleGeneralEdit(inputName) {
         setGeneralInfo(prev => {
             return prev.map(obj => {
-                return obj.field === target ? {...obj, inEdit: !obj.inEdit} : obj;
+                return obj.field === inputName ? {...obj, inEdit: !obj.inEdit} : obj;
             });
         });
     }
